@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+
+class balancing {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("balancing.in"));
+        PrintWriter out = new PrintWriter("balancing.out");
+
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+
+
+        int[] Xs = new int[N];
+        int[] Ys = new int[N];
+
+        for (int i =0; i<N; i++){
+            st = new StringTokenizer(bf.readLine());
+
+            Xs[i] = Integer.parseInt(st.nextToken());
+            Ys[i] = Integer.parseInt(st.nextToken());
+
+        }
+
+        int ret = Integer.MAX_VALUE;
+
+        for (int ii=0; ii<N; ii++) {
+            for (int x=0; x<N; x++) {
+
+                int Xpivot = Xs[ii] + 1;
+                int Ypivot = Ys[x] + 1;
+
+                int[] quadrants = new int[4];
+
+                for (int i = 0; i < N; i++) {
+                    if (Xs[i] >= Xpivot && Ys[i] >= Ypivot) {
+                        quadrants[0]++;
+                    }
+
+                    if (Xs[i] <= Xpivot && Ys[i] >= Ypivot) {
+                        quadrants[1]++;
+                    }
+
+                    if (Xs[i] <= Xpivot && Ys[i] <= Ypivot) {
+                        quadrants[2]++;
+                    }
+
+                    if (Xs[i] >= Xpivot && Ys[i] <= Ypivot) {
+                        quadrants[3]++;
+                    }
+                }
+
+                int max = 0;
+                for (int i = 0; i < 4; i++) {
+                    max = Math.max(max, quadrants[i]);
+
+                }
+                ret = Math.min(ret, max);
+            }
+        }
+
+
+        out.println(ret);
+        out.close();
+
+
+
+    }
+}

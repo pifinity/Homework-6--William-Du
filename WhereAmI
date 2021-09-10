@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+class whereami {
+    static boolean check(String input){
+        boolean unique = true;
+        for (String i:saves){
+            if (i.equals(input)) unique = false;
+        }
+
+        return unique;
+    }
+    static ArrayList<String> saves = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("whereami.in"));
+        PrintWriter out = new PrintWriter("whereami.out");
+
+        int N = Integer.parseInt(bf.readLine());
+
+        String road = bf.readLine();
+
+
+        int ret =0;
+        for (int i=1; i<=N; i++){
+            boolean works = true;
+            ret++;
+            for (int ii=0; ii<=N-i; ii++){
+                String segment = road.substring(ii, ii+i);
+                if (!check(segment)){
+                    works = false;
+                }
+                saves.add(segment);
+            }
+            if (works){
+                out.println(ret);
+                break;
+            }
+            saves.clear();
+        }
+        out.close();
+    }
+}

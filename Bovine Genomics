@@ -1,0 +1,51 @@
+import java.io.*;
+import java.util.*;
+
+class cownomics {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("cownomics.in"));
+        PrintWriter out = new PrintWriter("cownomics.out");
+
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int len = Integer.parseInt(st.nextToken());
+
+        boolean[][] saves = new boolean[len][4];
+
+        for (int i = 0; i<N; i++){
+            String lol = bf.readLine();
+
+            for (int ii=0; ii<len; ii++){
+                if (lol.charAt(ii)=='A') saves[ii][0]= true;
+                if (lol.charAt(ii)=='G') saves[ii][1]= true;
+                if (lol.charAt(ii)=='C') saves[ii][2]= true;
+                if (lol.charAt(ii)=='T') saves[ii][3]= true;
+            }
+        }
+
+        boolean[] posPos = new boolean[len];
+        Arrays.fill(posPos, true);
+
+        for (int i=0; i<N; i++){
+            String lol = bf.readLine();
+            for (int ii=0; ii<len; ii++){
+                if (lol.charAt(ii)=='A'&&saves[ii][0]) posPos[ii]= false;
+                if (lol.charAt(ii)=='G'&&saves[ii][1]) posPos[ii]= false;
+                if (lol.charAt(ii)=='C'&&saves[ii][2]) posPos[ii]= false;
+                if (lol.charAt(ii)=='T'&&saves[ii][3]) posPos[ii]= false;
+            }
+        }
+
+        int solution = 0;
+        for (int i =0 ; i<len; i++){
+            if (posPos[i]) solution++;
+        }
+
+        out.println(solution);
+        out.close();
+
+  //      System.out.println(Arrays.deepToString(saves));
+
+    }
+}
